@@ -15,8 +15,12 @@ gsmt = [146000,150000,162000,195000,200000, 200000, 200000]
 
 nclr  = [ 2679,  2679,  2679,  2679,  1300,      0,      0]
 
+# layout bugfix
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+
 plt.title("World Energy outlook '2050")
-plt.stackplot(years,
+ax.stackplot(years,
 	[
 		coal, oil, gas,
 		plant,
@@ -33,6 +37,12 @@ plt.stackplot(years,
 		"Water power", "Wind", "Solar"
 	)
 )
-plt.legend()
+
+#plt.legend()
+# fix to reverse the order of the legend:
+# https://stackoverflow.com/questions/34576059/reverse-the-order-of-a-legend
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(handles[::-1], labels[::-1])
+
 #plt.show()
 plt.savefig("plot.png", dpi=400)
